@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "name": "Humbleload",
+  "version": "1.0",
+
+  "description": "A Browser Plugin to download all eBooks in a HumbleBundle.",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.humblebundle.com/downloads*"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": [
+    "webRequest",
+    "downloads",
+    "*://*.humblebundle.com/downloads*"
+  ]
+}
