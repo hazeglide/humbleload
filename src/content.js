@@ -3,8 +3,17 @@ var browser = (typeof browser === 'undefined' ? chrome : browser)
 function downloadAllBooks(format) {
   Array.prototype.slice.call(document.getElementsByClassName("js-gamelist-holder")[0].getElementsByTagName("a")).forEach(function (link) {
     console.log(link);
-    //if (link.text.match(/EPUB|MOBI|PDF|PRC|Download|Supplement|ZIP/)) {
     if (link.text.match(new RegExp(format))) {
+      let url = link.href;
+      browser.runtime.sendMessage({ text: url });
+    }
+  });
+}
+
+function downloadAllBooksAllFormats() {
+  Array.prototype.slice.call(document.getElementsByClassName("js-gamelist-holder")[0].getElementsByTagName("a")).forEach(function (link) {
+    console.log(link);
+    if (link.text.match(/EPUB|MOBI|PDF|PRC|Download|Supplement|ZIP/)) {
       let url = link.href;
       browser.runtime.sendMessage({ text: url });
     }
@@ -26,13 +35,21 @@ function setup() {
       <option value="Supplement">Supplement</option>
       <option value="ZIP">ZIP</option>
   </select>
-  <button type="button" id="downloadAllButton">Download all!</button>`;
+  <button type="button" id="downloadAllButton">Download selected format</button>
+  <button type="button" id="downloadAllAllFormatsButton" style="margin-left: 4em">Download all formats</button>`;
   lastBox.parentNode.insertBefore(downloadLink, lastBox);
+  
   document.getElementById("downloadAllButton").onclick = function () {
     var e = document.getElementById('formats');
     var strUser = e.options[e.selectedIndex].text;
     console.log(strUser + " selected");
     downloadAllBooks(strUser);
+    console.log("click");
+    return false;
+  }
+
+  document.getElementById("downloadAllFormatsButton").onclick = function () {
+    downloadAllBooksAllFormats();
     console.log("click");
     return false;
   }
