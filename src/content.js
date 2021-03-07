@@ -36,7 +36,7 @@ function setup() {
       <option value="ZIP">ZIP</option>
   </select>
   <button type="button" id="downloadAllButton">Download selected format</button>
-  <button type="button" id="downloadAllAllFormatsButton" style="margin-left: 4em">Download all formats</button>`;
+  <button type="button" id="downloadAllFormatsButton" style="margin-left: 4em">Download all formats</button>`;
   lastBox.parentNode.insertBefore(downloadLink, lastBox);
   
   document.getElementById("downloadAllButton").onclick = function () {
